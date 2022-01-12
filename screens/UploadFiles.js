@@ -26,10 +26,13 @@ const UploadFiles = () => {
             console.log('Response = ', response);
             if (response.didCancel) {
               alert('cancelled to be picked');
+              setProgressState(false)
             } else if (response.error) {
                 alert('ImagePicker Error: ', response.error);
+                setProgressState(false)
             } else if (response.customButton) {
                 alert('User tapped custom button: ', response.customButton);
+                setProgressState(false)
             } else {
               setFileName(response.assets[0].fileName);
               setFilePath(response.assets[0].uri);
@@ -46,6 +49,7 @@ const UploadFiles = () => {
         let data = new FormData();
         data.append("file", fileObj);
         try {
+           if(fileObj){
             const response = await axios.post("https://ipfs-dev.ternoa.dev/api/v0/add" + `/thumbnail`, data, {
                 headers: {
                   accept: "application/json",
@@ -61,6 +65,9 @@ const UploadFiles = () => {
                     setFileSize("");
                     setFileObj("")
               }
+           }else{
+               alert("Nothing Selected")
+           }
         } catch (error) {
             alert("Some Thing Went Wrong")
             console.log(error)
