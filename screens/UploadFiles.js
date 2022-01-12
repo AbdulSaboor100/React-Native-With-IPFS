@@ -53,8 +53,16 @@ const UploadFiles = () => {
                   "Content-Type": `multipart/form-data; boundary=${data._boundary} `,
                 },
               });
-              console.log(response)
+              console.log(response.data)
+              if(response.data){
+                  alert("Upload SuccessFully")
+                    setFileName("");
+                    setFilePath("");
+                    setFileSize("");
+                    setFileObj("")
+              }
         } catch (error) {
+            alert("Some Thing Went Wrong")
             console.log(error)
         }
     }

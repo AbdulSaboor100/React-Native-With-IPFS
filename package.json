@@ -14,10 +14,7 @@
     "form-data": "^4.0.0",
     "react": "17.0.2",
     "react-native": "^0.66.4",
-    "react-native-image-picker": "^4.7.0",
-    "react-native-paper": "^4.11.1",
-    "react-native-progress": "^5.0.0",
-    "react-native-video-upload": "^1.1.4"
+    "react-native-image-picker": "^4.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
