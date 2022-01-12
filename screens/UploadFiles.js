@@ -9,7 +9,8 @@ const UploadFiles = () => {
     let [filePath , setFilePath] = useState();
     let [fileSize , setFileSize] = useState();
     let [progressState , setProgressState] = useState(false)
-    let [fileObj , setFileObj] = useState()
+    let [fileObj , setFileObj] = useState();
+    let [uploadedStatus , setUploadedStatus] = useState(false);
 
       let options = {
         title: 'Video Picker', 
@@ -50,6 +51,7 @@ const UploadFiles = () => {
         data.append("file", fileObj);
         try {
            if(fileObj){
+               setUploadedStatus(true)
             const response = await axios.post("https://ipfs-dev.ternoa.dev/api/v0/add" + `/thumbnail`, data, {
                 headers: {
                   accept: "application/json",
@@ -59,7 +61,8 @@ const UploadFiles = () => {
               });
               console.log(response.data)
               if(response.data){
-                  alert("Upload SuccessFully")
+                    setUploadedStatus(false)
+                    alert("Upload SuccessFully")
                     setFileName("");
                     setFilePath("");
                     setFileSize("");
@@ -104,9 +107,18 @@ const UploadFiles = () => {
                     )
                 }
             </View>
-            <View style={styles.uploadBtn}>
-                <TouchableOpacity onPress={uploadFileFunc} style={styles.pressBtn}><Text>Upload Selected File</Text></TouchableOpacity>
-            </View>
+            {
+                uploadedStatus === true ? (
+                    <View>
+                        <ProgressBarAndroid />
+                    </View>
+                ) : (
+                    <View style={styles.uploadBtn}>
+                        <TouchableOpacity onPress={uploadFileFunc} style={styles.pressBtn}><Text>Upload Selected File</Text></TouchableOpacity>
+                    </View>
+                )
+            }
+            
         </View>
     )
 }
